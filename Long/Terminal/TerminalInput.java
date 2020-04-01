@@ -5,8 +5,6 @@ import java.util.Scanner;
 
 public class TerminalInput
 {
-    protected int move;
-
     public static void userChoices()	//Deck d in parameter
     {
         Scanner s = new Scanner(System.in);
@@ -51,6 +49,9 @@ public class TerminalInput
 		Scanner t1 = new Scanner(System.in);
 		Scanner t2 = new Scanner(System.in);
 
+		Highscore score = new Highscore();
+		int currentScore = score.getHighscore("save_highscore.csv");
+		int move = 0;
 		while (true) 
 		{
 			System.out.println("Please enter your name: ");
@@ -61,8 +62,6 @@ public class TerminalInput
 
 			System.out.println("Enter 2nd tile: ");
 			String secondTile = t2.nextLine();
-	
-			break;
 
 			/* Card a = d.findLetter(firstTile);
 			Card b = d.findLetter(secondTile);
@@ -82,9 +81,12 @@ public class TerminalInput
 			} */
 
 
-			/* if(d.length() == 0)
+			// if(d.length() == 0) {
+				if(move < currentScore) {
+					score.saveHighscore(name,Integer.toString(move));
+				}
 				break;
-			*/
+			}
 		}
 	}
 
