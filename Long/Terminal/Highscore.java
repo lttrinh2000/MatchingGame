@@ -35,9 +35,9 @@ public class Highscore {
 		}
 	}		
 
-	public static void main(String[] args) {
+	/* public static void main(String[] args) {
 		Highscore score = new Highscore();
 		score.saveHighscore("Test Name","100000");
 		System.out.println(score.getHighscore("save_highscore.csv"));
-	}
+	} */
 }

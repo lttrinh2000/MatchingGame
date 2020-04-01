@@ -82,11 +82,11 @@ public class TerminalInput
 
 
 			// if(d.length() == 0) {
-				if(move < currentScore) {
+				if(move <= currentScore) {
 					score.saveHighscore(name,Integer.toString(move));
 				}
 				break;
-			}
+			//}
 		}
 	}
 
