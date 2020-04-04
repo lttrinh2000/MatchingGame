@@ -5,7 +5,7 @@ import java.util.Scanner;
 
 public class TerminalInput
 {
-    public static void userChoices()	//Deck d in parameter
+    public static void userChoices(Deck d)
     {
         Scanner s = new Scanner(System.in);
 
@@ -16,22 +16,19 @@ public class TerminalInput
 
             if (userInput.startsWith("e") || userInput.startsWith("E"))
             {
-                //d.dislay('e');
-		System.out.println("User chose: E");
+                d.setDifficulty(userInput.charAt(0));
 		break;
             }
 
             else if (userInput.startsWith("m") || userInput.startsWith("M"))
             {
-                //d.dislay('m');
-		System.out.println("User chose: M");
+                d.setDifficulty(userInput.charAt(0));                                                                                             
 		break;
             }
 
 	    else if (userInput.startsWith("h") || userInput.startsWith("H"))
 	    {
-                //d.dislay('h');
-		System.out.println("User chose: H");
+                d.setDifficulty(userInput.charAt(0));                                                                                             
 		break;                                                                                                             
 	    }
 
@@ -44,56 +41,57 @@ public class TerminalInput
     }
 
 	
-	public static void userChooseCard() {		// Deck d in paramenter
+	public static void userChooseCard(Deck d) {
 		Scanner n = new Scanner(System.in);
 		Scanner t1 = new Scanner(System.in);
 		Scanner t2 = new Scanner(System.in);
 
 		Highscore score = new Highscore();
 		int currentScore = score.getHighscore("save_highscore.csv");
+		System.out.println("Current highest score is: " + currentScore);
+
+		System.out.println("Please enter your name: ");
+                String name = n.nextLine();
+
 		int move = 0;
 		while (true) 
 		{
-			System.out.println("Please enter your name: ");
-			String name = n.nextLine();
+			if(d.allEmpty() == true) {
+				System.out.println("Game END");
+				System.out.println("Your score is: "+ move);
 
-			System.out.println("Enter 1st tile: ");
-			String firstTile = t1.nextLine();
+                                if(move <= currentScore) {
+                                        score.saveHighscore(name,Integer.toString(move));
+                                }
+                                break;
+                        }
 
-			System.out.println("Enter 2nd tile: ");
-			String secondTile = t2.nextLine();
+			d.display();
 
-			/* Card a = d.findLetter(firstTile);
-			Card b = d.findLetter(secondTile);
-			System.out.println("First tile have value: " + a.getValue());
-			System.out.println("Second tile have value: " + b.getValue()); */
+			System.out.println("Enter 1st card: ");
+			String firstCard = t1.nextLine();
+
+			System.out.println("Enter 2nd card: ");
+			String secondCard = t2.nextLine();
+
+			Card a = d.findLetter(firstCard);
+			Card b = d.findLetter(secondCard);
+			System.out.println("First Card have value: " + a.getValue());
+			System.out.println("Second Card have value: " + b.getValue());
 			
-			//move++
-
-			/* if(a.compare(b) == false) {
+			move++;
+		
+			if(a.compare(b) == false) {
 				continue;
 			}
 			
 			else {
-				d.remove(a);
-				d.remove(b);
-				d.dislay();
-			} */
+				a.setLetter(' ');
+				b.setLetter(' ');
+			}
+			continue;
 
-
-			// if(d.length() == 0) {
-				if(move <= currentScore) {
-					score.saveHighscore(name,Integer.toString(move));
-				}
-				break;
-			//}
 		}
-	}
-
-	public static void main(String[] args) {
-		TerminalInput input = new TerminalInput();
-		input.userChoices();
-		input.userChooseCard();
 	}
 
 }
