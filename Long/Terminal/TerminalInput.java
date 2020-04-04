@@ -82,6 +82,7 @@ public class TerminalInput
 			move++;
 		
 			if(a.compare(b) == false) {
+				System.out.println("\n" + "Don't match" +"\n");
 				continue;
 			}
 			

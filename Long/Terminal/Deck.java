@@ -1,12 +1,13 @@
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.Collections;
 
 public class Deck
 {
     Random randomGenerator;
     private ArrayList<Card> cards = new ArrayList<Card>();
     private char [] letters;
-    private int [] values;
+    private ArrayList<Integer> values = new ArrayList<Integer>();
     private int numCards;
     private String diff;
 
@@ -40,8 +41,10 @@ public class Deck
 	int count=0;
 	for (int i = 1; i <= numCards/2; i++)
         {
-		Card c = new Card(i,'A');
- 		cards.add(c);
+		//Card c = new Card(i,'A');
+ 		//cards.add(c);
+
+		values.add(i);		
 
 		if (i == numCards/2) {
 			i=0;
@@ -51,25 +54,27 @@ public class Deck
 			break;
         }
 	
-	//shuffle(values);
+	Collections.shuffle(values);
 
         for (int k = 0; k < numCards; k++)
         {
-		cards.get(k).setLetter((char)(65 + k));
+		//cards.get(k).setLetter((char)(65 + k));
+		Card c = new Card(values.get(k),(char)(65 + k));
+		cards.add(c);
         }
     }
 
-    private void shuffle(int[] values)
+    /*private void shuffle()
     {
         Random rgen = new Random();  // Random number generator			
  
-		for (int i=0; i<values.length; i++) {
-		    int randomPosition = rgen.nextInt(values.length);
-		    int temp = values[i];
-		    values[i] = values[randomPosition];
-		    values[randomPosition] = temp;
+		for (int i=0; i<values.size(); i++) {
+		    int randomPosition = rgen.nextInt(values.size());
+		    int temp = values.get(i);
+		    values.get(i) = values.get(randomPosition);
+		    values.get(randomPosition) = temp;
 		}
-    }
+    }*/
     
 	public String getDiff() {
 		return diff;
