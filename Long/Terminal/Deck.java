@@ -6,7 +6,6 @@ public class Deck
 {
     Random randomGenerator;
     private ArrayList<Card> cards = new ArrayList<Card>();
-    private char [] letters;
     private ArrayList<Integer> values = new ArrayList<Integer>();
     private int numCards;
     private String diff;
@@ -63,22 +62,10 @@ public class Deck
 		cards.add(c);
         }
     }
-
-    /*private void shuffle()
-    {
-        Random rgen = new Random();  // Random number generator			
- 
-		for (int i=0; i<values.size(); i++) {
-		    int randomPosition = rgen.nextInt(values.size());
-		    int temp = values.get(i);
-		    values.get(i) = values.get(randomPosition);
-		    values.get(randomPosition) = temp;
-		}
-    }*/
     
-	public String getDiff() {
-		return diff;
-	}
+    public String getDiff() {
+        return diff;
+    }
 
     public void display()
     {
