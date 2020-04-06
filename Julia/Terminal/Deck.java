@@ -1,33 +1,36 @@
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.Collections;
+import java.util.Arrays;
 
 public class Deck
 {
     Random randomGenerator;
     private ArrayList<Card> cards = new ArrayList<Card>();
-    private char [] letters;
-    private int [] values;
+    private ArrayList<Character> letters = new ArrayList<Character>();
+    private ArrayList<Integer> values = new ArrayList<Integer>();
     private int numCards;
 
-    public Deck()
+    public void buildDeck()
     {
-        for (int i = 1; i <= 2; i++)
+        for (int i = 0; i < numCards/2; i++)
         {
-            for (int j = 1; j <= numCards/2; j++)
-            {
-                values[i] = j;
-                letters[i] = (char)(65 + (i*j-1));
-            }
+            values.add(i);
+            values.add(i);
         }
-        shuffle();
+
+        System.out.println(values.size());
+        Collections.shuffle(values);
+
         for (int k = 0; k < numCards; k++)
         {
-            cards.add(new Card(values[k], letters[k]));
+            cards.add(new Card(values.get(k).intValue(), (char)(65+k)));
         }
     }
 
     public void setDifficulty(char d)
     {
+        //Determine number of cards in deck
         if (d == 'e' | d == 'E')
         {
             System.out.println("User chose: "+ d);
@@ -45,46 +48,28 @@ public class Deck
         }
         else
         {
-            System.out.println("User chose: "+ d);  
+            System.out.println("User chose: "+ d);
+            System.out.println("Not acceptable input. Defaulting to medium.");  
             numCards = 6;
         }
-    }
 
-    private void shuffle()
-    {
-        Random rgen = new Random();  // Random number generator			
- 
-		for (int i=0; i<values.length; i++) {
-		    int randomPosition = rgen.nextInt(values.length);
-		    int temp = values[i];
-		    values[i] = values[randomPosition];
-		    values[randomPosition] = temp;
-		}
-    }
-    
+        buildDeck();
+    }  
 
     public void display()
     {
-        String tag;
-        for(int i = 0; i <= numCards; i++)
+        System.out.println("\nYour Deck:");
+        for(int i = 0; i < numCards; i++)
         {
-            if (i%2==0)
-                tag = "\t";
-            else
-                tag = "\n";
-            System.out.println(cards.get(i)+tag);
+            System.out.print(cards.get(i).getLetter()+" ");
         }
+        System.out.println("\n");
     }
 
     public void removeCard(Card c)
     {
-        for (Card x : cards)
-        {
-            if (x.getValue() == c.getValue() & x.getLetter() == c.getLetter())
-            {
-                cards.remove(x);
-            }
-        }
+        cards.remove(c);
+        numCards--;
     }
 
     public Card findLetter(char c)
@@ -98,6 +83,11 @@ public class Deck
         }
         System.out.println("Letter not found.");
         return null;
+    }
+
+    public int cardsLeft()
+    {
+        return cards.size();
     }
 
 }
