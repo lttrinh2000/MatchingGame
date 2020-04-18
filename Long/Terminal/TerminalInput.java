@@ -1,10 +1,11 @@
 import java.util.Scanner;
-/**
- * User Interface via terminal
- */
 
 public class TerminalInput
 {
+    /**
+     * Use Case 1: Choose difficulty level
+     */
+  
     public static void userChoices(Deck d)
     {
         Scanner s = new Scanner(System.in);
@@ -46,6 +47,10 @@ public class TerminalInput
 		Scanner t1 = new Scanner(System.in);
 		Scanner t2 = new Scanner(System.in);
 
+		/**
+		 * Use Case 2: Save highest score and print out current highest score
+		 */
+
 		Highscore score = new Highscore();
 		int currentScore = score.getHighscore("save_highscore.csv");
 		System.out.println("Current highest score is: " + currentScore);
@@ -67,6 +72,10 @@ public class TerminalInput
                         }
 
 			d.display();
+
+			/**
+			 * Uses Case 3: Allow User to choose 2 cards and compare them
+			 */
 
 			System.out.println("Enter 1st card: ");
 			String firstCard = t1.nextLine();
