@@ -1,3 +1,5 @@
+import model.*;
+import controller.*;
 import org.junit.*;
 import static org.junit.Assert.*;
 

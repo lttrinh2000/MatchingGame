@@ -1,4 +1,8 @@
+package controller;
+
 import java.util.Scanner;
+import model.*;
+import controller.*;
 
 public class TerminalDriver
 {
