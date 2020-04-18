@@ -18,10 +18,7 @@ public class Deck
             values.add(i);
             values.add(i);
         }
-
-        System.out.println(values.size());
         Collections.shuffle(values);
-
         for (int k = 0; k < numCards; k++)
         {
             cards.add(new Card(values.get(k).intValue(), (char)(65+k)));
@@ -33,23 +30,23 @@ public class Deck
         //Determine number of cards in deck
         if (d == 'e' | d == 'E')
         {
-            System.out.println("User chose: "+ d);
+            System.out.println("User chose: Easy");
             numCards = 4;
         }
         else if (d == 'm' | d == 'M')
         {
-            System.out.println("User chose: "+ d);  
+            System.out.println("User chose: Medium");  
             numCards = 6;
         }
         else if (d == 'h' | d == 'H')
         {
-            System.out.println("User chose: "+ d);
+            System.out.println("User chose: Difficult");
             numCards = 8;
         }
         else
         {
             System.out.println("User chose: "+ d);
-            System.out.println("Not acceptable input. Defaulting to medium.");  
+            System.out.println("Not acceptable input. Defaulting to Medium.");  
             numCards = 6;
         }
 

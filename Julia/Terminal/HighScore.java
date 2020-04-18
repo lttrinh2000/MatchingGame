@@ -33,5 +33,21 @@ public class HighScore {
 			System.out.println(filename + " not open");
 			return 0;
 		}
-	}		
+	}	
+	
+	public String getHighScoreName(String filename) {
+		File file = new File(filename);
+		try {
+			BufferedReader br = new BufferedReader(new FileReader(file));
+
+			String line = br.readLine();
+			String[] strArray = line.split(",");
+			return strArray[0];
+		}
+
+		catch (Exception e) {
+			System.out.println(filename + " not open");
+			return "No Name Available";
+		}
+	}
 }
