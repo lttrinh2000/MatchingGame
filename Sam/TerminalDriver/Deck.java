@@ -19,7 +19,7 @@ public class Deck
             values.add(i);
         }
 
-        System.out.println(values.size() + " cards");
+        //System.out.println(values.size() + " cards");
         Collections.shuffle(values);
 
         for (int k = 0; k < numCards; k++)
@@ -33,17 +33,17 @@ public class Deck
         //Determine number of cards in deck
         if (d == 'e' | d == 'E')
         {
-            System.out.println("User chose: "+ d);
+            //System.out.println("User chose: "+ d);
             numCards = 4;
         }
         else if (d == 'm' | d == 'M')
         {
-            System.out.println("User chose: "+ d);  
+            //System.out.println("User chose: "+ d);  
             numCards = 6;
         }
         else if (d == 'h' | d == 'H')
         {
-            System.out.println("User chose: "+ d);
+            //System.out.println("User chose: "+ d);
             numCards = 8;
         }
         else
