@@ -6,13 +6,13 @@ import model.*;
 public class TerminalInput
 {
 	Scanner s = new Scanner(System.in);
-	HighScore score = new HighScore();
-	int currentScore = score.getHighScore("save_highscore.csv");
+	Highscore score = new Highscore();
+	int currentScore = score.getHighscore("save_highscore.csv");
 
     public void beginGame(Deck d)
     {
 		System.out.println("The current high score is: "+ currentScore);
-		System.out.println("This score was set by: " + score.getHighScoreName("save_highscore.csv"));
+		System.out.println("This score was set by: " + score.getHighscoreName("save_highscore.csv"));
 
 		System.out.println("Choose a difficulty: (E)asy (M)edium or (H)ard: ");
         char userInput = s.nextLine().charAt(0);
@@ -52,7 +52,7 @@ public class TerminalInput
 		{
 			System.out.println("New High Score! Please enter your name: ");
 			String name = s.nextLine();
-			score.saveHighScore(name, String.valueOf(moves));
+			score.saveHighscore(name, String.valueOf(moves), "save_highscore.csv");
 		}
 		else if (moves == currentScore)
 		{

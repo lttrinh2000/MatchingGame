@@ -1,0 +1,48 @@
+@Test
+    public void compareExpectRemove()
+    {
+        Deck deck = new Deck();
+        deck.setDifficulty('e');
+
+        Card a = deck.findLetter('a');
+        Card b = deck.findLetter('b');
+
+        int beforeRemove = deck.cardsLeft();
+        if (a.compare(b))
+            deck.removeCard(card);
+        int afterRemove = deck.cardsLeft();
+
+        assertEquals(4, beforeRemove);
+        assertEquals(3, afterRemove);
+    }
+
+    @Test
+    public void compareNoRemove()
+    {
+        Deck deck = new Deck();
+        deck.setDifficulty('e');
+        deck.buildDeck();
+
+        Card a = deck.findLetter('a');
+        Card b = deck.findLetter('b');
+
+        int beforeRemove = deck.cardsLeft();
+        if (a.compare(b))
+            deck.removeCard(card);
+        int afterRemove = deck.cardsLeft();
+
+        assertEquals(4, beforeRemove);
+        assertEquals(4, afterRemove);
+    }
+
+@Test
+    public void removeCardExpectTrue()
+    {
+        Deck d = new Deck();
+        d.setDifficulty('M');
+        int numExpected = 5;
+        Card A = d.findLetter('A');
+        d.removeCard(A);
+        boolean result = (numExpected==d.cardsLeft());
+        assertEquals("removeCardExpectTrue() ", true, result);
+    }
