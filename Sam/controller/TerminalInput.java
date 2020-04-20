@@ -2,113 +2,76 @@ package controller;
 
 import java.util.Scanner;
 import model.*;
-/**
- * User Interface via terminal
- */
 
 public class TerminalInput
 {
-    public static void userChoices(Deck d)
+	Scanner s = new Scanner(System.in);
+	HighScore score = new HighScore();
+	int currentScore = score.getHighScore("save_highscore.csv");
+
+    public void beginGame(Deck d)
     {
-        Scanner s = new Scanner(System.in);
+		System.out.println("The current high score is: "+ currentScore);
+		System.out.println("This score was set by: " + score.getHighScoreName("save_highscore.csv"));
 
-	while (true)
-        {
-            System.out.println("Choose a difficulty: (E)asy, (M)edium, or (H)ard: ");
-            String userInput = s.nextLine();
-
-            if (userInput.startsWith("e") || userInput.startsWith("E"))
-            {
-                d.setDifficulty(userInput.charAt(0));
-				break;
-            }
-
-            else if (userInput.startsWith("m") || userInput.startsWith("M"))
-            {
-                d.setDifficulty(userInput.charAt(0));                                                                                             
-				break;
-			}
-			
-			else if (userInput.startsWith("h") || userInput.startsWith("H"))
-			{
-					d.setDifficulty(userInput.charAt(0));                                                                                             
-					break;                                                                                                             
-			}
-
-			else
-			{
-			System.out.println("Please enter: E M H");
-			}
-
-		}
+		System.out.println("Choose a difficulty: (E)asy (M)edium or (H)ard: ");
+        char userInput = s.nextLine().charAt(0);
+        d.setDifficulty(userInput);
     }
 
-	
-	public static void userChooseCard(Deck d) {
-		Scanner n = new Scanner(System.in);
-		Scanner t1 = new Scanner(System.in);
-		Scanner t2 = new Scanner(System.in);
+	public void userChooseCard(Deck d)
+	{
+		System.out.println("Pick a card (enter letter): ");
+        String firstChoice = s.nextLine();
+        Card card1 = d.findLetter(firstChoice.toUpperCase().charAt(0));
+        System.out.println(card1.getValue());
 
-		Highscore score = new Highscore();
-		int currentScore = score.getHighscore("save_highscore.csv");
-		System.out.println("Current highest score is: " + currentScore);
+        System.out.println("Pick a second card (enter letter): ");
+        String secondChoice = s.nextLine();
+        Card card2 = d.findLetter(secondChoice.toUpperCase().charAt(0));
+        System.out.println(card2.getValue());
 
-		System.out.println("Please enter your name: ");
-        String name = n.nextLine();
-
-		int move = 0;
-		while (true) 
+		if (card1.compare(card2))
+        {
+			System.out.println("You found a match!");
+            d.removeCard(card1);
+            d.removeCard(card2);
+        }
+		else
 		{
-			if(d.cardsLeft() == 0) 
-			{
-				System.out.println("You Win!");
-				System.out.println("Your score is: "+ move);
+			System.out.println("Mismatch");
+		}
+	}
 
-                if(move <= currentScore)
-            		score.saveHighscore(name,Integer.toString(move));
-                break;
-            }
+	public void endGame(int moves)
+	{
+		System.out.println("GAME COMPLETE");
+		System.out.println("Your score is: " + moves + "\n");
 
-			d.display();
-
-			System.out.println("Enter 1st card: ");
-			String firstCard = t1.nextLine();
-			Card a = d.findLetter(firstCard.charAt(0));
-			System.out.println(a.getLetter() + "'s value is: " + a.getValue());
-
-			System.out.println("Enter 2nd card: ");
-			String secondCard = t2.nextLine();
-			Card b = d.findLetter(secondCard.charAt(0));
-			System.out.println(b.getLetter() + "'s value is: " + b.getValue());
-			
-			move++;
-		
-			if(a.compare(b))
-			{
-				System.out.println("\n" + a.getLetter() + " and " + b.getLetter() + " match! " +"\n");
-				d.removeCard(a);
-				d.removeCard(b);
-			}
-			else 
-			{
-				System.out.println("\n" + a.getLetter() + " and " + b.getLetter() + " don't match. " +"\n");
-			}
-
-			System.out.println("Cards left = " + d.cardsLeft());
-
+		if(moves < currentScore) 
+		{
+			System.out.println("New High Score! Please enter your name: ");
+			String name = s.nextLine();
+			score.saveHighScore(name, String.valueOf(moves));
+		}
+		else if (moves == currentScore)
+		{
+			System.out.println("You Matched the High Score! So close!");
+		}
+		else
+		{
+			System.out.println("You did not get a high score.");
 		}
 	}
 
 	public boolean playAgain()
 	{
-		Scanner scan = new Scanner(System.in);
 		System.out.println("Do you want to play again? (y/n): ");
-		String playAgain = scan.nextLine();
-		if(playAgain.equalsIgnoreCase("Y"))
+		char playAgain = s.nextLine().toUpperCase().charAt(0);
+		if(playAgain == 'Y')
 			return true;
 		else
 			return false;
 	}
-
 }
 

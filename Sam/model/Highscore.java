@@ -3,10 +3,10 @@ package model;
 import java.io.*;
 import java.util.*;
 
-public class Highscore {
-	public void saveHighscore(String name, String score) {
+public class HighScore {
+	public void saveHighScore(String name, String score) {
 		try {
-			File highscore = new File("save_highscore.csv");
+			File highscore = new File("save_highscore.csv"); 
 
 			FileWriter writer = new FileWriter(highscore);
 	
@@ -20,7 +20,7 @@ public class Highscore {
 		}
 	}
 
-	public int getHighscore(String filename) {
+	public int getHighScore(String filename) {
 		File file = new File(filename);
 
 		try {
@@ -35,6 +35,21 @@ public class Highscore {
 			System.out.println(filename + " not open");
 			return 0;
 		}
-	}		
+	}	
+	
+	public String getHighScoreName(String filename) {
+		File file = new File(filename);
+		try {
+			BufferedReader br = new BufferedReader(new FileReader(file));
 
+			String line = br.readLine();
+			String[] strArray = line.split(",");
+			return strArray[0];
+		}
+
+		catch (Exception e) {
+			System.out.println(filename + " not open");
+			return "No Name Available";
+		}
+	}
 }

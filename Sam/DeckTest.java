@@ -1,7 +1,7 @@
-import model.*;
-import controller.*;
+
 import org.junit.*;
 import static org.junit.Assert.*;
+import model.*;
 
 public class DeckTest 
 {
