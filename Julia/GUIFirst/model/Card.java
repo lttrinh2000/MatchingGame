@@ -1,3 +1,5 @@
+package model;
+
 public class Card
 {
     enum Type {fillSquare, centerSquare, polkaSquare, fillTriangle,
@@ -18,5 +20,16 @@ public class Card
     public Type getType()
     {
         return this.type;
+    }
+    public boolean compare(Card c)
+    {
+        if (c.getColorNumber() == this.getColorNumber() & c.getType() == this.getType())
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 }
