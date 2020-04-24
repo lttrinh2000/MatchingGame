@@ -43,13 +43,6 @@ public class Prototype
 	diffPanel.add(reset);
 	stackMenu.add(diffPanel);
 
-	/*JPanel table = new JPanel();
-	table.setLayout(new BoxLayout(table, BoxLayout.Y_AXIS));
-        CardPanel cardRows = new CardPanel(frameSize);
-        cardRows.add(new Card(Card.Type.centerCircle, 1), true);
-        cardRows.add(new Card(Card.Type.centerCircle, 1), true);
-        table.add(cardRows); */
-
 	GridCard gridCard = new GridCard(4,4);
 	
 	backGround.add(gridCard);
