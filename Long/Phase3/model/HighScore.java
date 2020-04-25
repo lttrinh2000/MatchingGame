@@ -74,9 +74,9 @@ public class HighScore {
 		}
 	}		
 
-	/*public void resetScore(){
+	public void resetScore(){
 		try {
-                	FileWriter writer = new FileWriter(highscore,false);
+                	FileWriter writer = new FileWriter("save_highscore.csv",false);
 			for(int i=0; i<3; i++) {
 				writer.write("Reset score,999999");
 				writer.write(System.getProperty( "line.separator" ));
@@ -86,7 +86,7 @@ public class HighScore {
 		catch (IOException e) {
                         System.out.println("Error occured");
                 }
-	}*/
+	}
 		
 	/*public static void main(String[] args) {
 		Highscore score = new Highscore();
