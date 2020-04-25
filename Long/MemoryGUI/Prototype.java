@@ -35,9 +35,9 @@ public class Prototype
         Deck d = new Deck("Easy");
         gridCard = new GridCard(d,main,this);	
 
-	
+
 	//panel for scores
-	/* JPanel scorePanel = new JPanel();
+        JPanel scorePanel = new JPanel();
         JLabel time = new JLabel("Time : " + timeLeft);
 
         ActionListener timerAction = new ActionListener(){
@@ -46,17 +46,19 @@ public class Prototype
                     time.setText("Time : " + timeLeft);
         }};
         timer = new Timer(1000,timerAction);
-        timer.start();        
+        timer.start();
 
-	JLabel highScore = new JLabel("High Score: " + currentScore);
+
+        JLabel highScore = new JLabel("High Score: " + updateHighScore("Easy"));
         scorePanel.add(score);
-        scorePanel.add(highScore); 
+        scorePanel.add(highScore);
         scorePanel.add(time);
-	stackMenu.add(scorePanel); */
+        stackMenu.add(scorePanel);
+
 
 	//panel for difficulties
         JPanel diffPanel = new JPanel();
-
+	
 	/**
 	 * Remove "Choose Difficulty" for the HighSCore class to work
 	**/
@@ -81,6 +83,9 @@ public class Prototype
                         gridCard = new GridCard(newDeck, main, p);
                         backGround.add(gridCard,0);
 
+			currentScore = updateHighScore(playDifficulty);
+			highScore.setText("High Score: " + currentScore);
+
                         moves=0;
                         score.setText("Moves = " + moves);
                         timer.stop();
@@ -94,34 +99,6 @@ public class Prototype
                 }
         });
 
-
-	//panel for scores
-        JPanel scorePanel = new JPanel();
-        JLabel time = new JLabel("Time : " + timeLeft);
-
-        ActionListener timerAction = new ActionListener(){
-                public void actionPerformed(ActionEvent evt) {
-                    timeLeft-=1;
-                    time.setText("Time : " + timeLeft);
-        }};
-        timer = new Timer(1000,timerAction);
-        timer.start();
-
-        /**
-         * NEW HighSCore added below
-        **/
-        HighScore scoreNumber = new HighScore();
-        pos = scoreNumber.position(currentDifficulty);
-        currentScore = scoreNumber.getCurrentScore(pos);
-
-
-        JLabel highScore = new JLabel("High Score: " + currentScore);
-        scorePanel.add(score);
-        scorePanel.add(highScore);
-        scorePanel.add(time);
-        stackMenu.add(scorePanel);
-	
-
 	JButton reset = new JButton("Reset");
         reset.addActionListener(new ActionListener()
         {
@@ -132,6 +109,10 @@ public class Prototype
                         backGround.remove(gridCard);
                         gridCard = new GridCard(newDeck, main, p);
                         backGround.add(gridCard,0);
+
+			
+			currentScore = updateHighScore(currentDifficulty);
+                        highScore.setText("High Score: " + currentScore);
 
                         moves=0;
                         timer.stop();
@@ -168,6 +149,15 @@ public class Prototype
         score.setText("Moves = " + moves);
         mainFrame.revalidate();
     }
+
+    public int updateHighScore(String diff)
+    {
+	HighScore scoreNumber = new HighScore();
+        int pos = scoreNumber.position(diff);
+        int HighestScore = scoreNumber.getCurrentScore(pos);
+	return HighestScore;
+    }	
+
     public int stopTime()
     {
         timer.stop();
