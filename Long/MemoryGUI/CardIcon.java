@@ -1,6 +1,4 @@
 import java.awt.Rectangle;
-
-import javax.lang.model.util.ElementScanner6;
 import javax.swing.*;
 import java.awt.*;
 
@@ -45,20 +43,6 @@ public class CardIcon implements Icon
                 this.typeString = "\u25CD";
                 break;
         }
-
-        if (card.getColorNumber() == 1)
-        {
-            color = Color.BLUE;
-        }
-        else if (card.getColorNumber() == 2)
-        {
-            color = Color.RED;
-        }
-        else
-        {
-            color = Color.GREEN;
-        }
-
     }
 
     public void setShowFace(boolean showFace) 

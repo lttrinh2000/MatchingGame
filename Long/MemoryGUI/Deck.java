@@ -1,25 +1,30 @@
 import java.util.ArrayList;
 import java.util.Random;
-import java.util.Collections;
-import java.util.Arrays;
 
 public class Deck
 {
+    private int x; 
     Random randomGenerator;
     private ArrayList<Card> cards = new ArrayList<Card>();
-    private int numColors;
     
-    
-    public int getNumCards() {
-	return numColors;
-    }
 
-
-    public void buildDeck()
+    public Deck(String difficulty)
     {
+        x = 1;
+        
+        if (difficulty.equals("Easy"))
+            {x = 1;}
+        else if (difficulty.equals("Medium"))
+            {x = 2;}
+        else if (difficulty.equals("Hard"))
+            {x = 3;}
+        else
+            {x = 1;}
+        
+
         for (int i = 1; i <= 2; i++)
         {
-            for(int j = 1; j <= numColors; j++)
+            for(int j = 1; j <= x; j++)
             {
                 cards.add(new Card(Card.Type.fillSquare, j));
                 cards.add(new Card(Card.Type.centerSquare, j));
@@ -30,35 +35,9 @@ public class Deck
                 cards.add(new Card(Card.Type.linesCircle, j));
             }
         }
+        randomGenerator = new Random();
     }
-
-    public void setDifficulty(char d)
-    {
-        //Determine number of cards in deck
-        if (d == 'e' | d == 'E')
-        {
-            System.out.println("User chose: "+ d);
-            numColors = 1;
-        }
-        else if (d == 'm' | d == 'M')
-        {
-            System.out.println("User chose: "+ d);  
-            numColors = 2;
-        }
-        else if (d == 'h' | d == 'H')
-        {
-            System.out.println("User chose: "+ d);
-            numColors = 3;
-        }
-        else
-        {
-            System.out.println("User chose: "+ d);
-            System.out.println("Invalid input. Defaulting to medium.");  
-            numColors = 2;
-        }
-
-        buildDeck();
-    }
+    
     public void shuffle()
     {
         for (int i = 0; i < cards.size(); i++)
@@ -69,13 +48,14 @@ public class Deck
             cards.set(swap_with, swapped);
         }
     }
-    public void removeCard(Card c)
-    {
-        cards.remove(c);
-    }
 
-    public int cardsLeft()
+    public int getSize()
     {
         return cards.size();
+    }
+
+    public Card getCard(int index)
+    {
+        return cards.get(index);
     }
 }
