@@ -57,7 +57,7 @@ public class GridCard extends JPanel
 							if (numCard==0)
 							{
 								int timeLeft = Proto.stopTime();
-
+								main.endGame(Proto.getMoves(), (60-timeLeft), Proto.getDifficulty());
 							}
 						}
 						else

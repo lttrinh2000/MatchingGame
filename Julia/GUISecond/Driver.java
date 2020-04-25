@@ -3,6 +3,7 @@ import javax.swing.*;
 public class Driver
 {
     boolean selected=false;
+    boolean play = true;
     Card c;
     JButton button1 = new JButton("Placeholder");
     JButton button2 = new JButton("Placeholder");
@@ -10,7 +11,6 @@ public class Driver
     public static void main(String []args)
     {
         GameBoard memoryGameMain = new GameBoard(400,new Driver());
-
     }
     public void switchSelected()
     {
@@ -44,14 +44,9 @@ public class Driver
     {
         return button2;
     }
-    public void endGame()
+    public void endGame(int moves, int time, String difficulty)
     {
-        int time = 45;
-        int moves = 1;
-        int prevHigh = 100;
-        String prevName = "Betty";
-
-        GameEndDisplay end = new GameEndDisplay(time, moves, prevHigh, prevName);
+        GameEndDisplay end = new GameEndDisplay(moves, time, difficulty);
+        end.createDisplay();
     }
-
 }

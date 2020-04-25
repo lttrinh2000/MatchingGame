@@ -144,6 +144,16 @@ public class GameBoard
         return mainFrame;
     }
 
+    public int getMoves()
+    {
+        return moves;
+    }
+
+    public String getDifficulty()
+    {
+        return currentDifficulty;
+    }
+
     public void updateScore()
     {
         moves++;

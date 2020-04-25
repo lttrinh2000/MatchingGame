@@ -87,7 +87,23 @@ public class HighScore
 			System.out.println("save_highscore.csv not open");
 			return "";
 		}
-	}		
+    }
+    
+    public String getPrevName(int pos)
+    {
+        try
+        {
+			String line = getHighScore(pos);
+			String[] strArray = line.split(",");
+			return strArray[0];			
+        }
+
+        catch (Exception e) 
+        {
+            System.out.println("current score not working");
+            return "Not Found";
+        }
+    }
 
     public void resetScore()
     {

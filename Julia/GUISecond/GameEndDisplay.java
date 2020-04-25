@@ -9,20 +9,21 @@ public class GameEndDisplay
 
     int userTime;
     int userMoves;
+    String difficulty;
+
+    HighScore HighScore = new HighScore();
+    String userName;
     int prevHigh;
     String prevName;
 
-    boolean setHigh = false;
-    String userName;
-
     boolean playAgainChoice;
 
-    public GameEndDisplay(int timeTaken, int numberMoves, int prevHigh, String prevName)
+    public GameEndDisplay(int timeTaken, int numberMoves, String difficulty)
     {
         this.userTime = timeTaken;
         this.userMoves = numberMoves;
-        this.prevHigh = prevHigh;
-        this.prevName = prevName;
+        prevName = HighScore.getPrevName(HighScore.position(difficulty));
+        prevHigh = HighScore.getCurrentScore(HighScore.position(difficulty));
     }
 
     public void createDisplay()
@@ -59,7 +60,6 @@ public class GameEndDisplay
             scoringPanel.add(newHigh);
             JTextField nameTextBox = new JTextField();
             scoringPanel.add(nameTextBox);
-            setHigh = true;
 
             JButton submitButton = new JButton("OK");
             scoringPanel.add(submitButton);
@@ -71,6 +71,8 @@ public class GameEndDisplay
                     userName = nameTextBox.getText();
                     nameTextBox.setEnabled(false);
                     submitButton.setEnabled(false);
+
+                    HighScore.saveHighScore(userName, String.valueOf(moves), HighScore.position(difficulty));
                 }
             });
         }
@@ -115,19 +117,6 @@ public class GameEndDisplay
         exitFrame.setVisible(true);
     }
     
-
-    /*
-    THE FOLLOWING CODE WILL BE USED IF I AM PASSING BACK HIGH SCORE INFO
-    public boolean newHighscore()
-    {
-        return setHigh;
-    }
-
-    public String getNewHighscoreName()
-    {
-        return userName;
-    }
-    */
 
     public boolean playAgain()
     {
