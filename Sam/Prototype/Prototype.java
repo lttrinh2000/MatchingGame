@@ -12,6 +12,10 @@ public class Prototype
     private int moves = 0;
     private JLabel score = new JLabel("Moves = " + moves);
     private GridCard gridCard;
+    private String currentDifficulty;
+    private int timeLeft=60;
+    private Timer timer;
+
 
     public Prototype(int size, Driver main)
     {
@@ -26,11 +30,21 @@ public class Prototype
 
 	JPanel stackMenu = new JPanel();
         stackMenu.setLayout(new BoxLayout(stackMenu, BoxLayout.Y_AXIS));
-        gridCard = new GridCard(4,4,main,this);	
+        Deck d = new Deck("Easy");
+        gridCard = new GridCard(d,main,this);	
 
 	//panel for scores
 	JPanel scorePanel = new JPanel();
-	JLabel time = new JLabel("Time : 60");
+        JLabel time = new JLabel("Time : " + timeLeft);
+
+        ActionListener timerAction = new ActionListener(){
+                public void actionPerformed(ActionEvent evt) {
+                    timeLeft-=1;
+                    time.setText("Time : " + timeLeft);
+        }};
+        timer = new Timer(1000,timerAction);
+        timer.start();        
+
 	JLabel highScore = new JLabel("High Score: 100");
         scorePanel.add(score);
         scorePanel.add(highScore); 
@@ -41,7 +55,7 @@ public class Prototype
         JPanel diffPanel = new JPanel();
         String difficultyChoice[] = {"Choose Difficulty","Easy","Medium","Hard"};
         JComboBox difficulty = new JComboBox<>(difficultyChoice);
-        String currentDifficulty = difficulty.getSelectedItem().toString();
+        currentDifficulty = difficulty.getSelectedItem().toString();
         
         JButton play = new JButton("Play");
         play.addActionListener(new ActionListener()
@@ -50,15 +64,21 @@ public class Prototype
                 public void actionPerformed(ActionEvent e)
                 {
                         String playDifficulty = difficulty.getSelectedItem().toString();
-                        //create new deck with difficulty, pass into gridcard
+                        Deck newDeck = new Deck(playDifficulty);
                         backGround.remove(gridCard);
-                        gridCard = new GridCard(4 , 4, main, p);
+                        gridCard = new GridCard(newDeck, main, p);
                         backGround.add(gridCard,0);
 
                         moves=0;
                         score.setText("Moves = " + moves);
+                        timer.stop();
+                        timeLeft=60;
+                        timer.start();
 
                         mainFrame.revalidate();
+                        mainFrame.pack();
+
+                        currentDifficulty = playDifficulty;
                 }
         });
 
@@ -68,15 +88,19 @@ public class Prototype
                 @Override
                 public void actionPerformed(ActionEvent e)
                 {
-                        //create new deck with currentDifficulty, pass into gridcard
+                        Deck newDeck = new Deck(currentDifficulty);
                         backGround.remove(gridCard);
-                        gridCard = new GridCard(4 , 4, main, p);
+                        gridCard = new GridCard(newDeck, main, p);
                         backGround.add(gridCard,0);
 
                         moves=0;
+                        timer.stop();
+                        timeLeft=60;
+                        timer.start();
                         score.setText("Moves = " + moves);
 
                         mainFrame.revalidate();
+                        mainFrame.pack();
                 }
         });
 
@@ -103,5 +127,10 @@ public class Prototype
         moves++;
         score.setText("Moves = " + moves);
         mainFrame.revalidate();
+    }
+    public int stopTime()
+    {
+        timer.stop();
+        return timeLeft;
     }
 }

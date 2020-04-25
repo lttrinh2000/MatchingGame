@@ -7,18 +7,19 @@ public class Deck
     Random randomGenerator;
     private ArrayList<Card> cards = new ArrayList<Card>();
 
-    public Deck()
+    public Deck(String difficulty)
     {
         x = 1;
-        /*
-        String difficulty = something.getMode();
+        
         if (difficulty.equals("Easy"))
             {x = 1;}
         else if (difficulty.equals("Medium"))
             {x = 2;}
-        else
+        else if (difficulty.equals("Hard"))
             {x = 3;}
-        */
+        else
+            {x = 1;}
+        
 
         for (int i = 1; i <= 2; i++)
         {
@@ -45,5 +46,15 @@ public class Deck
             cards.set(i,cards.get(swap_with));
             cards.set(swap_with, swapped);
         }
+    }
+
+    public int getSize()
+    {
+        return cards.size();
+    }
+
+    public Card getCard(int index)
+    {
+        return cards.get(index);
     }
 }
