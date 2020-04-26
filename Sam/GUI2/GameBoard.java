@@ -6,7 +6,6 @@ import java.awt.event.*;
 
 public class GameBoard
 {
-    private int frameSize = 800;
     protected JFrame mainFrame;
     protected JButton reset;
     //added
@@ -22,11 +21,9 @@ public class GameBoard
 
     public GameBoard(int size, Driver main)
     {
-        this. frameSize = size;
         GameBoard p = this;
 
         mainFrame = new JFrame("Memory Game");
-        //mainFrame.setPreferredSize(new Dimension(frameSize, frameSize));
         mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 	    JPanel backGround = new JPanel();
@@ -52,7 +49,7 @@ public class GameBoard
                 {
                     //mainFrame.setEnabled(false);
                     timer.stop();
-                    main.endGame(moves, (60-timeLeft), currentDifficulty, p);
+                    main.endGame(moves,(60-timeLeft), currentDifficulty, p);
                 }
             }
         };
@@ -181,7 +178,7 @@ public class GameBoard
 
     public void startAgain()
     {
-        //mainFrame.setEnabled(true);
+        mainFrame.setEnabled(true);
         reset.doClick();
         timeLeft = 60;
         timer.start();

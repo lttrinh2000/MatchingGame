@@ -23,6 +23,7 @@ public class GameEndDisplay
     {
         this.userTime = timeTaken;
         this.userMoves = numberMoves;
+	this.difficulty = difficulty;
         prevName = HighScore.getPrevName(HighScore.position(difficulty));
         prevHigh = HighScore.getCurrentScore(HighScore.position(difficulty));
         this.Proto = inProto;
@@ -30,6 +31,8 @@ public class GameEndDisplay
 
     public void createDisplay()
     {
+	Proto.mainFrame.setEnabled(false);
+
         // top level container for end-of-game page
         exitFrame = new JFrame("Memory");
         exitFrame.setPreferredSize(new Dimension(frameSize, frameSize*3/2));
@@ -55,8 +58,15 @@ public class GameEndDisplay
         //previous scoring info
         JLabel displayHighscore = new JLabel("Previous High Score: " + prevHigh + " by user " + prevName);
         scoringPanel.add(displayHighscore);
+
+	if (userTime == 0 | userTime == 60)
+        {
+            JLabel endTime = new JLabel("End of time.");
+            scoringPanel.add(endTime);
+        }
+
         // if user got a high score, ask for name
-        if (userMoves < prevHigh)
+        else if (userMoves < prevHigh)
         {
             JLabel newHigh = new JLabel("You got a new high score!");
             scoringPanel.add(newHigh);
@@ -74,9 +84,10 @@ public class GameEndDisplay
                     nameTextBox.setEnabled(false);
                     submitButton.setEnabled(false);
 
-                    HighScore.saveHighScore(userName, String.valueOf(moves), HighScore.position(difficulty));
+                    HighScore.saveHighScore(userName, String.valueOf(userMoves), HighScore.position(difficulty));
                 }
             });
+            exitFrame.pack();
         }
         else if (userMoves == prevHigh)
         {
