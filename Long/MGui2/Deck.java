@@ -34,7 +34,7 @@ public class Deck
             }
         }
         randomGenerator = new Random();
-	shuffle();
+	    shuffle();
     }
     
     public void shuffle()

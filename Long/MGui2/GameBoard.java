@@ -6,8 +6,9 @@ import java.awt.event.*;
 
 public class GameBoard
 {
-    private int frameSize = 800;
-    private JFrame mainFrame;
+    private int frameSize;
+    protected JFrame mainFrame;
+    protected JButton reset;
     //added
     private int moves = 0;
     private JLabel score = new JLabel("Moves = " + moves);
@@ -47,6 +48,12 @@ public class GameBoard
             {
                 timeLeft-=1;
                 time.setText("Time : " + timeLeft);
+                if (timeLeft==0)
+                {
+                    //mainFrame.setEnabled(false);
+                    timer.stop();
+                    main.endGame(moves,(60-timeLeft), currentDifficulty, p);
+                }
             }
         };
         timer = new Timer(1000,timerAction);
@@ -98,7 +105,7 @@ public class GameBoard
             }
         });
 
-	    JButton reset = new JButton("Reset");
+	    reset = new JButton("Reset");
         reset.addActionListener(new ActionListener()
         {
             @Override
@@ -170,5 +177,13 @@ public class GameBoard
     {
         timer.stop();
         return timeLeft;
+    }
+
+    public void startAgain()
+    {
+        mainFrame.setEnabled(true);
+        reset.doClick();
+        timeLeft = 60;
+        timer.start();
     }
 }

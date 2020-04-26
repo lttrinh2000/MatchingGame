@@ -44,9 +44,10 @@ public class Driver
     {
         return button2;
     }
-    public void endGame(int moves, int time, String difficulty)
+    public void endGame(int time, int moves, String difficulty, GameBoard Proto)
     {
-        GameEndDisplay end = new GameEndDisplay(moves, time, difficulty);
+        GameEndDisplay end = new GameEndDisplay(moves, time, difficulty, Proto);
         end.createDisplay();
+        end.playAgain();
     }
 }
