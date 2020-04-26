@@ -6,8 +6,9 @@ import java.awt.event.*;
 
 public class FullGameBoard 
 {
+    
+    protected JFrame mainFrame;
     private int frameSize;
-    private JFrame mainFrame;
     private JButton play;
     private JButton reset;
     private JComboBox difficulty;
@@ -70,17 +71,19 @@ public class FullGameBoard
                 time.setText("Time : " + timeLeft);
             }
         };
-        resetTime();
+        timer = new Timer(1000,timerAction);
+        timer.start();
         scorePanel.add(time);
 
         stackMenu.add(scorePanel);
 
 
-        //cards = new LayoutCards(new Deck("Easy"));
+        // cards = new LayoutCards(new Deck("Easy"));
         background = new JPanel();
         background.add(stackMenu);
         background.add(cards);
 
+        // adding cards, buttons, and info to the mainFrame
         mainFrame.add(background);
         mainFrame.pack();
         mainFrame.setVisible(true);
@@ -113,7 +116,7 @@ public class FullGameBoard
     }
     public void resetTime()
     {
-        timer = new Timer(1000,timerAction);
+        timer.stop();
         timeLeft = 60;
         timer.start();
     }
@@ -135,5 +138,10 @@ public class FullGameBoard
     {
         mainFrame.revalidate();
         mainFrame.pack();
+    }
+    public boolean playAgain()
+    {
+        int choice = JOptionPane.showConfirmDialog(mainFrame, "Play again?", "Results", JOptionPane.YES_NO_OPTION);
+        return choice == JOptionPane.YES_OPTION;
     }
 }

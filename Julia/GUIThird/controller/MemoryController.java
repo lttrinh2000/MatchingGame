@@ -12,6 +12,7 @@ public class MemoryController
 
     protected ActionListener playListener;
     protected ActionListener resetListener;
+    //protected ActionListener pickCardsListener;
 
     protected String difficulty;
     private int moves;
@@ -36,9 +37,18 @@ public class MemoryController
                 reset();
             }
         };
+        /*
+        pickCardsListener = new ActionListener()
+        {
+            public void actionPerformed(ActionEvent e)
+            {
+                buttonSelect();
+            }
+        };*/
 
         this.memoryTable.startGame(playListener);
         this.memoryTable.resetGame(resetListener);
+        //this.cards.pickCards(pickCardsListener);
     }
 
     private void play()
@@ -63,5 +73,15 @@ public class MemoryController
         memoryTable.resetTime();
         memoryTable.updateMainFrame();
     }
-
+    /*
+    private void buttonSelect()
+    {
+        if (cards.cardSelected()==false)
+        {
+            //hides previously selected cards
+            cards.getButton().setIcon(null);
+            cards.getSecondButton().setIcon(null);         
+        }
+    }
+    */
 }

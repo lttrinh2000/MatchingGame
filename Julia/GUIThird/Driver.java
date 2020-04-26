@@ -8,7 +8,7 @@ public class Driver {
         Deck deck = new Deck("Easy");
         LayoutCards cards = new LayoutCards(deck);
         FullGameBoard game = new FullGameBoard(cards);
-        game.createBoard(800);
+        game.createBoard(400);
         MemoryController gameController = new MemoryController(deck, game, cards);
     }
 }
