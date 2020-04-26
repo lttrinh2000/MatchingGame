@@ -1,3 +1,5 @@
+package model;
+
 public class Card
 {
     enum Type {fillSquare, centerSquare, polkaSquare, fillTriangle,

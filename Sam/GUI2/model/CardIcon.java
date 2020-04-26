@@ -1,3 +1,5 @@
+package model;
+
 import java.awt.Rectangle;
 
 import javax.lang.model.util.ElementScanner6;

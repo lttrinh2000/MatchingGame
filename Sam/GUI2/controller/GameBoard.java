@@ -1,3 +1,7 @@
+package controller;
+import model.*;
+import view.*;
+
 import javax.swing.*;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
@@ -6,8 +10,8 @@ import java.awt.event.*;
 
 public class GameBoard
 {
-    protected JFrame mainFrame;
-    protected JButton reset;
+    public JFrame mainFrame;
+    public JButton reset;
     //added
     private int moves = 0;
     private JLabel score = new JLabel("Moves = " + moves);
@@ -19,7 +23,13 @@ public class GameBoard
     private int currentScore;
     private int pos; 
 
-    public GameBoard(int size, Driver main)
+    private boolean selected=false;
+    private boolean play = true;
+    private Card c;
+    private JButton button1 = new JButton("Placeholder");
+    private JButton button2 = new JButton("Placeholder");
+
+    public GameBoard(int size)
     {
         GameBoard p = this;
 
@@ -32,7 +42,7 @@ public class GameBoard
         stackMenu.setLayout(new BoxLayout(stackMenu, BoxLayout.Y_AXIS));
         Deck d = new Deck("Easy");
 
-        gridCard = new GridCard(d,main,this);	
+        gridCard = new GridCard(d,p);	
 
 
 	    //panel for scores
@@ -47,9 +57,8 @@ public class GameBoard
                 time.setText("Time : " + timeLeft);
                 if (timeLeft==0)
                 {
-                    //mainFrame.setEnabled(false);
                     timer.stop();
-                    main.endGame(moves,(60-timeLeft), currentDifficulty, p);
+                    endGame(moves,(60-timeLeft), currentDifficulty, p);
                 }
             }
         };
@@ -65,10 +74,7 @@ public class GameBoard
 
 	    //panel for difficulties
         JPanel diffPanel = new JPanel();
-	
-	    /**
-	     * Remove "Choose Difficulty" for the HighSCore class to work
-	    **/
+
         String difficultyChoice[] = {"Easy","Medium","Hard"};
         JComboBox difficulty = new JComboBox<>(difficultyChoice);
         currentDifficulty = difficulty.getSelectedItem().toString();
@@ -83,7 +89,7 @@ public class GameBoard
                 Deck newDeck = new Deck(playDifficulty);
 			
                 backGround.remove(gridCard);
-                gridCard = new GridCard(newDeck, main, p);
+                gridCard = new GridCard(newDeck, p);
                 backGround.add(gridCard,0);
 
 			    currentScore = updateHighScore(playDifficulty);
@@ -110,10 +116,10 @@ public class GameBoard
             {
                 Deck newDeck = new Deck(currentDifficulty);
                 backGround.remove(gridCard);
-                gridCard = new GridCard(newDeck, main, p);
+                gridCard = new GridCard(newDeck, p);
                 backGround.add(gridCard,0);
 
-		currentScore = updateHighScore(currentDifficulty);
+		        currentScore = updateHighScore(currentDifficulty);
                 highScore.setText("High Score: " + currentScore);
 
                 moves=0;
@@ -182,5 +188,45 @@ public class GameBoard
         reset.doClick();
         timeLeft = 60;
         timer.start();
+    }
+
+    //code that used to be in driver
+    public void switchSelected()
+    {
+        selected = !selected;
+    }
+    public boolean cardSelected()
+    {
+        return selected;
+    }
+    public Card getCard()
+    {
+        return c;
+    }
+    public void setCard(Card card)
+    {
+        c = card;
+    }
+    public void setButton(JButton inButton)
+    {
+        button1=inButton;
+    }
+    public void setSecondButton(JButton inButton)
+    {
+        button2=inButton;
+    }
+    public JButton getButton()
+    {
+        return button1;
+    }
+    public JButton getSecondButton()
+    {
+        return button2;
+    }
+    public void endGame(int time, int moves, String difficulty, GameBoard Proto)
+    {
+        GameEndDisplay end = new GameEndDisplay(moves, time, difficulty, Proto);
+        end.createDisplay();
+        end.playAgain();
     }
 }

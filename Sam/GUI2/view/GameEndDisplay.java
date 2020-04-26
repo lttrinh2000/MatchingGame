@@ -1,3 +1,7 @@
+package view;
+import model.*;
+import controller.*;
+
 import java.awt.*;
 import javax.swing.*;
 import java.awt.event.*;
@@ -23,7 +27,7 @@ public class GameEndDisplay
     {
         this.userTime = timeTaken;
         this.userMoves = numberMoves;
-	this.difficulty = difficulty;
+	    this.difficulty = difficulty;
         prevName = HighScore.getPrevName(HighScore.position(difficulty));
         prevHigh = HighScore.getCurrentScore(HighScore.position(difficulty));
         this.Proto = inProto;
@@ -140,16 +144,4 @@ public class GameEndDisplay
         return playAgainChoice;
     }
 
-    /*
-    public static void main(String[] args)
-    {
-        int time = 45;
-        int moves = 1;
-        int prevHigh = 100;
-        String prevName = "Betty";
-
-        GameEndDisplay end = new GameEndDisplay(time,moves,prevHigh,prevName);
-        end.createDisplay();
-    }
-    */
 }

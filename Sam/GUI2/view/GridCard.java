@@ -1,3 +1,7 @@
+package view;
+import model.*;
+import controller.*;
+
 import java.awt.*; 
 import java.awt.event.*; 
 import javax.swing.*; 
@@ -7,7 +11,7 @@ public class GridCard extends JPanel
 {
 	private int numCard;
 
-    public GridCard(Deck d, Driver main, GameBoard Proto)
+    public GridCard(Deck d, GameBoard Proto)
     {
 		numCard = d.getSize();
 
@@ -29,44 +33,44 @@ public class GridCard extends JPanel
 				@Override
 				public void actionPerformed(ActionEvent e)
 				{
-					if (main.cardSelected()==false)
+					if (Proto.cardSelected()==false)
 					{
 						// hides old selected
-						main.getButton().setIcon(null);
-						main.getSecondButton().setIcon(null);
+						Proto.getButton().setIcon(null);
+						Proto.getSecondButton().setIcon(null);
 
 						//selects a card, disables button, and changes appropriate fields
 						button.setEnabled(false);
-						main.switchSelected();
-						main.setButton(button);
-						main.setCard(card);
+						Proto.switchSelected();
+						Proto.setButton(button);
+						Proto.setCard(card);
 						button.setIcon(icon);
 					}
 					else
 					{
-						if (main.getCard().compare(card))
+						if (Proto.getCard().compare(card))
 						{
 							button.setEnabled(false);
 							button.setIcon(icon);	
 							button.setBackground(Color.GREEN);
-							main.getButton().setIcon(new CardIcon(125, main.getCard()));
-							main.getButton().setBackground(Color.GREEN);
-							main.setButton(new JButton("Placeholder"));
-							main.setSecondButton(new JButton("Placeholder"));
+							Proto.getButton().setIcon(new CardIcon(125, Proto.getCard()));
+							Proto.getButton().setBackground(Color.GREEN);
+							Proto.setButton(new JButton("Placeholder"));
+							Proto.setSecondButton(new JButton("Placeholder"));
 							numCard = numCard -2;
 							if (numCard==0)
 							{
 								int timeLeft = Proto.stopTime();
-								main.endGame(Proto.getMoves(), (60-timeLeft), Proto.getDifficulty(), Proto);
+								Proto.endGame(Proto.getMoves(), (60-timeLeft), Proto.getDifficulty(), Proto);
 							}
 						}
 						else
 						{
 							button.setIcon(icon);
-							main.getButton().setEnabled(true);
-							main.setSecondButton(button);	
+							Proto.getButton().setEnabled(true);
+							Proto.setSecondButton(button);	
 						}
-						main.switchSelected();
+						Proto.switchSelected();
 						Proto.updateScore();
 					}
 					Proto.mainFrame.pack();
