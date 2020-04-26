@@ -21,7 +21,7 @@ public class GridCard extends JPanel
 			Card card = d.getCard(i);
 			CardIcon icon = new CardIcon(125,card);
 
-			JButton button = new JButton("Card "+ Integer.toString(i));
+			JButton button = new JButton("Card "+ Integer.toString(i+1));
 			button.setIcon(null);
 			button.setPreferredSize(new Dimension(125, 125));
 			button.addActionListener(new ActionListener()
